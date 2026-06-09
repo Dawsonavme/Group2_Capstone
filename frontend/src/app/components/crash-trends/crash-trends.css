@@ -24,3 +24,47 @@
 .chart-wrapper {
   height: 280px;
 }
+
+/* Main chart card */
+.chart-card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e7eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Hover effect */
+.chart-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.14);
+}
+
+/* Chart title */
+.chart-card h3 {
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+/* Chart description */
+.chart-card p {
+  margin: 0 0 18px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Chart area */
+.chart-wrapper {
+  height: 280px;
+}
+
+/* Canvas animation */
+.chart-card canvas {
+  transition: transform 0.35s ease;
+}
+
+/* Slight chart zoom */
+.chart-card:hover canvas {
+  transform: scale(1.02);
+}

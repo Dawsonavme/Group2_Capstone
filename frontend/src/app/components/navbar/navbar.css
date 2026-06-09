@@ -1,28 +1,29 @@
 /* Main navbar container */
 .navbar {
-  height: 72px;
+  min-height: 74px;
   padding: 0 28px;
   background: #0f172a;
   color: white;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
 }
 
-/* Title area */
+/* Navbar title */
 .navbar-title h2 {
   margin: 0;
   font-size: 22px;
+  font-weight: 700;
 }
 
-/* Subtitle text */
+/* Navbar subtitle */
 .navbar-title span {
   font-size: 13px;
   color: #cbd5e1;
 }
 
-/* User circle on the right */
-/* Displays project information on the right side */
+/* Right side project label */
 .project-label {
   font-size: 15px;
   font-weight: 600;

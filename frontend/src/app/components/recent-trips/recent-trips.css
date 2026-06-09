@@ -1,15 +1,23 @@
-/* Main table card container */
+/* Main recent trips table card */
 .table-card {
   background: white;
   padding: 24px;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
   border: 1px solid #e5e7eb;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Section heading */
+/* Hover effect for the table card */
+.table-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.14);
+}
+
+/* Section title */
 .table-card h3 {
   margin: 0 0 8px;
+  color: #0f172a;
 }
 
 /* Section description */
@@ -19,13 +27,13 @@
   font-size: 14px;
 }
 
-/* Full width table */
+/* Table layout */
 table {
   width: 100%;
   border-collapse: collapse;
 }
 
-/* Table headers */
+/* Table header cells */
 th {
   text-align: left;
   color: #64748b;
@@ -34,7 +42,7 @@ th {
   border-bottom: 1px solid #e5e7eb;
 }
 
-/* Table cells */
+/* Table data cells */
 td {
   padding: 14px 12px;
   border-bottom: 1px solid #f1f5f9;
@@ -43,10 +51,17 @@ td {
 
 /* Risk badge base style */
 .risk {
+  display: inline-block;
   padding: 5px 10px;
   border-radius: 999px;
   font-size: 12px;
   font-weight: 600;
+  transition: transform 0.25s ease;
+}
+
+/* Risk badge hover effect */
+.risk:hover {
+  transform: scale(1.08);
 }
 
 /* Low risk badge */

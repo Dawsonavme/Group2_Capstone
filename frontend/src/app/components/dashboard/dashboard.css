@@ -2,6 +2,7 @@
 .dashboard-page {
   min-height: 100vh;
   background: #f4f7fb;
+  animation: fadeIn 0.6s ease-in-out;
 }
 
 /* Main dashboard content spacing */
@@ -27,7 +28,20 @@
   margin-top: 24px;
 }
 
-/* Makes dashboard responsive on tablets and phones */
+/* Page load animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Responsive layout */
 @media (max-width: 900px) {
   .charts-grid,
   .bottom-grid {

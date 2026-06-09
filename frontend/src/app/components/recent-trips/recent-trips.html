@@ -21,36 +21,26 @@
     </thead>
 
     <!-- Table data rows -->
-    <tbody>
-      <tr>
-        <td>Jun 9</td>
-        <td>18 km</td>
-        <td>32 min</td>
-        <td><span class="risk low">Low</span></td>
-      </tr>
+   <!-- Table data rows generated from DashboardService -->
+<tbody>
 
-      <tr>
-        <td>Jun 8</td>
-        <td>26 km</td>
-        <td>45 min</td>
-        <td><span class="risk medium">Medium</span></td>
-      </tr>
+  <tr *ngFor="let trip of recentTrips">
+    <td>{{ trip.date }}</td>
+    <td>{{ trip.distance }}</td>
+    <td>{{ trip.duration }}</td>
 
-      <tr>
-        <td>Jun 7</td>
-        <td>12 km</td>
-        <td>20 min</td>
-        <td><span class="risk low">Low</span></td>
-      </tr>
+    <td>
+      <span
+        class="risk"
+        [class.low]="trip.risk === 'Low'"
+        [class.medium]="trip.risk === 'Medium'"
+        [class.high]="trip.risk === 'High'">
+        {{ trip.risk }}
+      </span>
+    </td>
+  </tr>
 
-      <tr>
-        <td>Jun 6</td>
-        <td>34 km</td>
-        <td>58 min</td>
-        <td><span class="risk high">High</span></td>
-      </tr>
-    </tbody>
-
+</tbody>
   </table>
 
 </div>

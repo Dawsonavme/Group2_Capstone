@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { Chart, ChartConfiguration, registerables } from 'chart.js';
 
+// Imports dashboard service
+import { DashboardService } from '../../services/dashboard.service';
+
 // Registers all Chart.js components
 Chart.register(...registerables);
 
@@ -19,32 +22,31 @@ Chart.register(...registerables);
 })
 export class RiskDistribution {
 
-  // Sample risk distribution data
-  public pieChartData: ChartConfiguration<'pie'>['data'] = {
+  // Stores pie chart data
+  public pieChartData: ChartConfiguration<'pie'>['data'];
 
-    labels: [
-      'Low Risk',
-      'Medium Risk',
-      'High Risk'
-    ],
-
-    datasets: [
-
-      {
-        data: [65, 25, 10]
-      }
-
-    ]
-
-  };
-
-  // Chart options
+  // Chart display options
   public pieChartOptions: ChartConfiguration<'pie'>['options'] = {
-
     responsive: true,
-
     maintainAspectRatio: false
-
   };
+
+  // Injects DashboardService
+  constructor(private dashboardService: DashboardService) {
+
+    // Gets risk distribution data from service
+    const riskData = this.dashboardService.getRiskDistribution();
+
+    // Converts service data into Chart.js pie chart format
+    this.pieChartData = {
+      labels: riskData.map(item => item.riskLevel),
+      datasets: [
+        {
+          data: riskData.map(item => item.percentage)
+        }
+      ]
+    };
+
+  }
 
 }

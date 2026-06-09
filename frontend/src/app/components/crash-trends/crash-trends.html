@@ -1,0 +1,20 @@
+<!-- Card displaying crash trend visualization -->
+<div class="chart-card">
+
+  <!-- Chart title -->
+  <h3>Crash Trends</h3>
+
+  <!-- Short description aligned with project analytics goal -->
+  <p>Monthly sample crash incident patterns based on historical data.</p>
+
+  <!-- Line chart rendered using Chart.js -->
+  <div class="chart-wrapper">
+    <canvas
+      baseChart
+      [data]="lineChartData"
+      [options]="lineChartOptions"
+      [type]="'line'">
+    </canvas>
+  </div>
+
+</div>

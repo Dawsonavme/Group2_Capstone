@@ -1,0 +1,22 @@
+<!-- Card displaying weekly trip analytics -->
+
+<div class="chart-card">
+
+  <h3>Trip Analytics</h3>
+
+  <p>
+    Weekly driving activity based on sample trip records.
+  </p>
+
+  <div class="chart-wrapper">
+
+    <canvas
+      baseChart
+      [data]="barChartData"
+      [options]="barChartOptions"
+      [type]="'bar'">
+    </canvas>
+
+  </div>
+
+</div>

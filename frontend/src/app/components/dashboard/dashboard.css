@@ -1,0 +1,36 @@
+/* Full dashboard page background */
+.dashboard-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+}
+
+/* Main dashboard content spacing */
+.dashboard-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 28px;
+}
+
+/* Main charts area */
+.charts-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Bottom analytics section */
+.bottom-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 24px;
+  margin-top: 24px;
+}
+
+/* Makes dashboard responsive on tablets and phones */
+@media (max-width: 900px) {
+  .charts-grid,
+  .bottom-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,29 @@
+<!-- Risk distribution visualization -->
+
+<div class="chart-card">
+
+  <h3>
+    Risk Distribution
+  </h3>
+
+  <p>
+    Distribution of drivers across different calculated risk levels.
+  </p>
+
+  <div class="chart-wrapper">
+
+    <canvas
+
+      baseChart
+
+      [data]="pieChartData"
+
+      [options]="pieChartOptions"
+
+      [type]="'pie'">
+
+    </canvas>
+
+  </div>
+
+</div>

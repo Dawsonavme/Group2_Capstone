@@ -1,0 +1,68 @@
+/* Main table card container */
+.table-card {
+  background: white;
+  padding: 24px;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+  border: 1px solid #e5e7eb;
+}
+
+/* Section heading */
+.table-card h3 {
+  margin: 0 0 8px;
+}
+
+/* Section description */
+.table-card p {
+  margin: 0 0 18px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Full width table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+/* Table headers */
+th {
+  text-align: left;
+  color: #64748b;
+  font-size: 13px;
+  padding: 12px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+/* Table cells */
+td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 14px;
+}
+
+/* Risk badge base style */
+.risk {
+  padding: 5px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* Low risk badge */
+.low {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+/* Medium risk badge */
+.medium {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+/* High risk badge */
+.high {
+  background: #fee2e2;
+  color: #b91c1c;
+}

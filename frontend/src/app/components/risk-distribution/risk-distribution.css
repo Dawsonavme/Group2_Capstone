@@ -1,0 +1,43 @@
+/* Pie chart card */
+
+.chart-card {
+
+  background: white;
+
+  padding: 24px;
+
+  border-radius: 16px;
+
+  box-shadow: 0 8px 24px rgba(15, 23, 42, 0.08);
+
+  border: 1px solid #e5e7eb;
+
+}
+
+/* Title */
+
+.chart-card h3 {
+
+  margin: 0 0 8px;
+
+}
+
+/* Description */
+
+.chart-card p {
+
+  margin-bottom: 18px;
+
+  color: #64748b;
+
+  font-size: 14px;
+
+}
+
+/* Pie chart size */
+
+.chart-wrapper {
+
+  height: 280px;
+
+}

@@ -1,0 +1,30 @@
+/* Main navbar container */
+.navbar {
+  height: 72px;
+  padding: 0 28px;
+  background: #0f172a;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Title area */
+.navbar-title h2 {
+  margin: 0;
+  font-size: 22px;
+}
+
+/* Subtitle text */
+.navbar-title span {
+  font-size: 13px;
+  color: #cbd5e1;
+}
+
+/* User circle on the right */
+/* Displays project information on the right side */
+.project-label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #e2e8f0;
+}

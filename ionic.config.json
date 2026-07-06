@@ -1,0 +1,7 @@
+{
+  "name": "SafeDrive",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}

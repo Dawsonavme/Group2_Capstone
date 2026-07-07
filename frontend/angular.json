@@ -2,11 +2,12 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "cli": {
-    "packageManager": "npm"
+    "packageManager": "npm",
+    "analytics": false
   },
   "newProjectRoot": "projects",
   "projects": {
-    "driver-safety-frontend": {
+    "driver-safety-tabs": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -24,7 +25,9 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/material-theme.scss", "src/styles.css"]
+            "styles": [
+              "src/styles.css"
+            ]
           },
           "configurations": {
             "production": {
@@ -54,10 +57,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "driver-safety-frontend:build:production"
+              "buildTarget": "driver-safety-tabs:build:production"
             },
             "development": {
-              "buildTarget": "driver-safety-frontend:build:development"
+              "buildTarget": "driver-safety-tabs:build:development"
             }
           },
           "defaultConfiguration": "development"

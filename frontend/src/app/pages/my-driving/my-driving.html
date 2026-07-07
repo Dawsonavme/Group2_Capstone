@@ -1,1 +1,301 @@
-<h1>My Driving Page</h1>
+<!-- =========================================================
+     MY DRIVING PAGE
+========================================================= -->
+
+<section class="page">
+
+  <div class="page-header">
+    <h2>My Driving Analytics</h2>
+    <p>User-specific driving data, habits, and personal risk score</p>
+  </div>
+
+  <!-- Top cards -->
+
+  <div class="grid two">
+
+    <article class="card score-card">
+
+      <div class="card-title">
+        <h3>Driver Risk Score</h3>
+        <span class="info">i</span>
+      </div>
+
+      <div class="gauge">
+
+        <div class="score">
+
+          {{ driverRiskScore }}
+
+        </div>
+
+        <p>
+
+          {{ riskLevel }}
+
+        </p>
+
+      </div>
+
+      <p class="positive">
+
+        {{ weeklyImprovement }}
+
+      </p>
+
+    </article>
+
+    <article class="card">
+
+      <h3>Your Risk Focus</h3>
+
+      <p class="large-text">
+
+        Your current risk level is
+
+        <span class="yellow">
+
+          {{ riskLevel }}
+
+        </span>
+
+      </p>
+
+      <p class="muted">
+
+        Focus on reducing speeding,
+        harsh braking,
+        and rapid acceleration.
+
+      </p>
+
+      <button class="secondary-btn">
+
+        How is my score calculated?
+
+      </button>
+
+    </article>
+
+  </div>
+
+  <!-- Behaviour summary -->
+
+  <article class="card">
+
+    <div class="card-title">
+
+      <h3>Driving Behavior Summary</h3>
+
+      <span class="info">i</span>
+
+    </div>
+
+    <div class="metrics">
+
+      <div class="metric high">
+
+        <span>Speeding</span>
+
+        <strong>{{ speeding }}%</strong>
+
+        <small>of driving time</small>
+
+        <em>High</em>
+
+      </div>
+
+      <div class="metric high">
+
+        <span>Harsh Braking</span>
+
+        <strong>{{ harshBraking }}</strong>
+
+        <small>events per trip</small>
+
+        <em>High</em>
+
+      </div>
+
+      <div class="metric moderate">
+
+        <span>Rapid Acceleration</span>
+
+        <strong>{{ rapidAcceleration }}</strong>
+
+        <small>events per trip</small>
+
+        <em>Moderate</em>
+
+      </div>
+
+      <div class="metric moderate">
+
+        <span>Night Driving</span>
+
+        <strong>{{ nightDriving }}%</strong>
+
+        <small>of driving time</small>
+
+        <em>Moderate</em>
+
+      </div>
+
+      <div class="metric good">
+
+        <span>Trip Frequency</span>
+
+        <strong>{{ tripsThisWeek }}</strong>
+
+        <small>trips this week</small>
+
+        <em>Good</em>
+
+      </div>
+
+      <div class="metric good">
+
+        <span>Phone Usage</span>
+
+        <strong>{{ phoneUsage }}</strong>
+
+        <small>events per trip</small>
+
+        <em>Good</em>
+
+      </div>
+
+    </div>
+
+  </article>
+
+  <!-- Risk insight -->
+
+  <article class="card">
+
+    <div class="section-row">
+
+      <h3>Risk Insight For You</h3>
+
+      <a href="#">View All</a>
+
+    </div>
+
+    <div class="insight-box">
+
+      <div>
+
+        <h4>Highway Speeding Risk</h4>
+
+        <p>
+
+          You tend to speed on highways.
+          Based on similar historical patterns,
+          your rear-end collision risk is higher than average.
+
+        </p>
+
+        <button class="primary-btn">
+
+          See Details →
+
+        </button>
+
+      </div>
+
+      <div class="mini-card">
+
+        <p>
+
+          <strong>Most likely accident:</strong>
+
+          Rear-End Collision
+
+        </p>
+
+        <p>
+
+          <strong>Possible injuries:</strong>
+
+          Whiplash,
+          Neck Injury,
+          Lower Back Injury
+
+        </p>
+
+        <p>
+
+          <strong>Typical recovery:</strong>
+
+          2 - 8 weeks
+
+        </p>
+
+      </div>
+
+    </div>
+
+  </article>
+
+  <!-- Recent trips -->
+
+  <article class="card">
+
+    <div class="section-row">
+
+      <h3>Recent Trips</h3>
+
+      <a href="#">View All</a>
+
+    </div>
+
+    <!-- Angular loop -->
+
+    <div
+      class="trip-card"
+      *ngFor="let trip of recentTrips">
+
+      <div>
+
+        <h4>
+
+          {{ trip.date }}
+
+          •
+
+          {{ trip.time }}
+
+        </h4>
+
+        <p>
+
+          {{ trip.distance }}
+
+          •
+
+          {{ trip.duration }}
+
+          •
+
+          {{ trip.type }}
+
+        </p>
+
+        <p class="muted">
+
+          {{ trip.summary }}
+
+        </p>
+
+      </div>
+
+      <div class="trip-score">
+
+        {{ trip.score }}
+
+      </div>
+
+    </div>
+
+  </article>
+
+</section>

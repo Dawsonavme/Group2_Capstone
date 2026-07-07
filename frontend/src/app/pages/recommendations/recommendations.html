@@ -1,1 +1,109 @@
-<h1>My Driving Page</h1>
+<!-- Recommendations tab: personalized + general safety advice -->
+<section class="page">
+
+  <!-- Page title -->
+  <div class="page-header">
+    <h2>Safety Recommendations</h2>
+    <p>Driving safety tips based on personal habits and general crash patterns</p>
+  </div>
+
+  <!-- Priority recommendation cards -->
+  <div class="grid three">
+
+    <article class="card">
+      <div class="icon red">⚠️</div>
+      <h3>Reduce Speeding</h3>
+      <p>
+        Speeding increases crash severity and reduces reaction time.
+        Keep speed within posted limits, especially in rain or at night.
+      </p>
+      <span class="tag high">High Priority</span>
+    </article>
+
+    <article class="card">
+      <div class="icon yellow">🚗</div>
+      <h3>Maintain Safe Distance</h3>
+      <p>
+        Rear-end collisions are common when drivers follow too closely.
+        Keep enough space between your vehicle and the vehicle ahead.
+      </p>
+      <span class="tag moderate">Medium Priority</span>
+    </article>
+
+    <article class="card">
+      <div class="icon green">✅</div>
+      <h3>Avoid Harsh Braking</h3>
+      <p>
+        Harsh braking can indicate distracted driving, speeding,
+        or poor following distance. Brake smoothly whenever possible.
+      </p>
+      <span class="tag moderate">Medium Priority</span>
+    </article>
+
+  </div>
+
+  <!-- Recommended habits -->
+  <article class="card wide">
+    <h3>Recommended Driving Habits</h3>
+
+    <div class="habit-list">
+
+      <div class="habit">
+        <span>1</span>
+        <p>Slow down during bad weather and wet road conditions.</p>
+      </div>
+
+      <div class="habit">
+        <span>2</span>
+        <p>Avoid unnecessary night driving when tired.</p>
+      </div>
+
+      <div class="habit">
+        <span>3</span>
+        <p>Use seatbelts for every trip, even short trips.</p>
+      </div>
+
+      <div class="habit">
+        <span>4</span>
+        <p>Keep both hands on the wheel and avoid phone use while driving.</p>
+      </div>
+
+      <div class="habit">
+        <span>5</span>
+        <p>Brake smoothly and maintain a safe following distance.</p>
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Recommendation logic explanation -->
+  <article class="card wide">
+    <h3>How Recommendations Are Generated</h3>
+
+    <p>
+      The app compares user driving behavior with historical crash data.
+      Based on patterns such as speed, road condition, weather, time of day,
+      and collision type, the system suggests safer driving actions.
+    </p>
+
+    <div class="logic-grid">
+
+      <div>
+        <strong>User Data</strong>
+        <p>Speeding, braking, acceleration, trip time, and trip frequency.</p>
+      </div>
+
+      <div>
+        <strong>Historical Data</strong>
+        <p>Crash type, weather, road condition, injury severity, and recovery outcome.</p>
+      </div>
+
+      <div>
+        <strong>AI Insight</strong>
+        <p>Matches risky patterns and recommends safer driving habits.</p>
+      </div>
+
+    </div>
+  </article>
+
+</section>

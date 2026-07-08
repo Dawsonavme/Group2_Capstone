@@ -1,17 +1,37 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { TripService } from '../../services/trip';
+import { IonContent, IonButton, IonHeader, IonToolbar, IonTitle } from "@ionic/angular/standalone";
 
 @Component({
   selector: 'app-my-driving',
 
   // Import CommonModule so we can use *ngFor and other directives
-  imports: [CommonModule],
+  imports: [ IonContent, IonButton, IonHeader, IonToolbar, IonTitle,CommonModule],
 
   templateUrl: './my-driving.html',
   styleUrl: './my-driving.css'
 })
 export class MyDriving {
+  constructor(
+    public tripService: TripService,
+    private router: Router
+  ) {}
 
+  startTrip() {
+  if (this.tripService.tripStatus === 'active') {
+    alert('Trip already active');
+    return;
+  }
+
+  const success = this.tripService.startTrip();
+  if (success) {
+    this.router.navigate(['/active-trip']);
+  } else {
+    alert('Failed to start trip');
+  }
+}
   // ==========================================================
   // USER RISK SUMMARY
   // ==========================================================

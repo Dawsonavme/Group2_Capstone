@@ -8,7 +8,17 @@
     <h2>My Driving Analytics</h2>
     <p>User-specific driving data, habits, and personal risk score</p>
   </div>
+ <div class="start-trip-container">
 
+  <button
+      class="primary-btn"
+      (click)="startTrip()"
+      [disabled]="tripService.tripStatus === 'active'">
+{{ tripService.tripStatus === 'active' ? 'Trip Already Active' : 'Start Trip' }}
+
+  </button>
+
+</div>
   <!-- Top cards -->
 
   <div class="grid two">
@@ -297,5 +307,5 @@
     </div>
 
   </article>
-
+ 
 </section>

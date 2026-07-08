@@ -1,0 +1,22 @@
+<div class="page">
+  <h2>Active Trip</h2>
+
+  <div class="card">
+    <h3>Trip Recording Active</h3>
+    <p><strong>Status:</strong> {{ tripService.tripStatus }}</p>
+
+    <ng-container *ngIf="tripService.activeTrip">
+      <p><strong>Trip ID:</strong> {{ tripService.activeTrip.id }}</p>
+      <p><strong>Start Time:</strong> {{ tripService.activeTrip.startTime | date:'medium' }}</p>
+    </ng-container>
+  </div>
+
+  <!-- Improved End Trip Button -->
+ <!-- Improved End Trip Button -->
+<button 
+  class="end-trip-btn"
+  *ngIf="tripService.tripStatus === 'active'"
+  (click)="endTrip()">
+  End Trip
+</button>
+</div>

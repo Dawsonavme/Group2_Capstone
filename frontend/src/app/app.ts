@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { IonApp, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/angular/standalone";
 
+
 @Component({
   selector: 'app-root',
 
@@ -14,4 +15,5 @@ import { IonApp, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/angu
 })
 export class App {
   // Root component for the Driver Safety Analytics frontend
+  
 }

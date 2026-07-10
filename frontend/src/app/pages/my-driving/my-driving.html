@@ -6,15 +6,84 @@
     <h1>My Driving Analytics</h1>
     <p class="subtitle">Track your personal driving habits and risk score</p>
   </div>
+ <div class="start-trip-container">
 
-  <!-- Start Trip Button -->
-  <div class="start-trip-section">
-    <button 
-      class="primary-btn start-trip-btn"
+  <button
+      class="primary-btn"
       (click)="startTrip()"
-      [disabled]="isStartingTrip">
-      {{ isStartingTrip ? 'Starting Trip...' : '🚗 Start New Trip' }}
-    </button>
+      [disabled]="tripService.tripStatus === 'active'">
+{{ tripService.tripStatus === 'active' ? 'Trip Already Active' : 'Start Trip' }}
+
+  </button>
+
+</div>
+  <!-- Top cards -->
+
+  <div class="grid two">
+
+    <article class="card score-card">
+
+      <div class="card-title">
+        <h3>Driver Risk Score</h3>
+        <span class="info">i</span>
+      </div>
+
+      <div class="gauge">
+
+        <div class="score">
+
+          {{ driverRiskScore }}
+
+        </div>
+
+        <p>
+
+          {{ riskLevel }}
+
+        </p>
+
+      </div>
+
+      <p class="positive">
+
+        {{ weeklyImprovement }}
+
+      </p>
+
+    </article>
+
+    <article class="card">
+
+      <h3>Your Risk Focus</h3>
+
+      <p class="large-text">
+
+        Your current risk level is
+
+        <span class="yellow">
+
+          {{ riskLevel }}
+
+        </span>
+
+      </p>
+
+      <p class="muted">
+
+        Focus on reducing speeding,
+        harsh braking,
+        and rapid acceleration.
+
+      </p>
+
+      <button class="secondary-btn">
+
+        How is my score calculated?
+
+      </button>
+
+    </article>
+
   </div>
 
   <!-- Risk Score Card -->
@@ -92,4 +161,6 @@
     </div>
   </div>
 
-</div>
+  </article>
+ 
+</section>

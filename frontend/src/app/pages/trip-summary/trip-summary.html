@@ -2,111 +2,17 @@
   <h2>Trip Summary</h2>
 
   <div class="card" *ngIf="tripService.completedTrip; else noTrip">
-
     <h3>Trip Completed Successfully</h3>
-
+    
     <p><strong>Trip ID:</strong> {{ tripService.completedTrip.id }}</p>
-
-    <p>
-      <strong>Start Time:</strong>
-      {{ tripService.completedTrip.startTime | date:'medium' }}
-    </p>
-
-    <p>
-      <strong>End Time:</strong>
-      {{ tripService.completedTrip.endTime | date:'medium' }}
-    </p>
-
-    <p>
-      <strong>Duration:</strong>
-      {{ tripService.completedTrip.duration }}
-    </p>
-
-
-    <!-- ============================= -->
-    <!-- START LOCATION -->
-    <!-- ============================= -->
-
-    <hr>
-
-    <h4>Start Location</h4>
-
-    <p>
-      <strong>Latitude:</strong>
-      {{ tripService.completedTrip.startLocation?.latitude }}
-    </p>
-
-    <p>
-      <strong>Longitude:</strong>
-      {{ tripService.completedTrip.startLocation?.longitude }}
-    </p>
-
-    <p>
-      <strong>Accuracy:</strong>
-      {{ tripService.completedTrip.startLocation?.accuracy }}
-    </p>
-
-    <p>
-      <strong>Timestamp:</strong>
-      {{ tripService.completedTrip.startLocation?.timestamp }}
-    </p>
-
-
-    <!-- ============================= -->
-    <!-- END LOCATION -->
-    <!-- ============================= -->
-
-    <hr>
-
-    <h4>End Location</h4>
-
-    <p>
-      <strong>Latitude:</strong>
-      {{ tripService.completedTrip.endLocation?.latitude }}
-    </p>
-
-    <p>
-      <strong>Longitude:</strong>
-      {{ tripService.completedTrip.endLocation?.longitude }}
-    </p>
-
-    <p>
-      <strong>Accuracy:</strong>
-      {{ tripService.completedTrip.endLocation?.accuracy }}
-    </p>
-
-    <p>
-      <strong>Timestamp:</strong>
-      {{ tripService.completedTrip.endLocation?.timestamp }}
-    </p>
-
-
-    <!-- ============================= -->
-    <!-- GPS DATA -->
-    <!-- ============================= -->
-
-    <hr>
-
-    <p>
-      <strong>GPS Point Count:</strong>
-      {{ tripService.completedTrip.gpsPointCount }}
-    </p>
-
+    <p><strong>Start Time:</strong> {{ tripService.completedTrip.startTime | date:'medium' }}</p>
+    <p><strong>End Time:</strong> {{ tripService.completedTrip.endTime | date:'medium' }}</p>
+    <p><strong>Duration:</strong> {{ tripService.completedTrip.duration }}</p>
 
     <div class="summary-stats">
-
-      <p>
-        <strong>GPS Points:</strong>
-       {{ tripService.completedTrip.gpsPoints?.length || 0 }}
-      </p>
-
-      <p>
-        <strong>Speed Readings:</strong>
-        {{ tripService.completedTrip.speedReadings?.length || 0 }}
-      </p>
-
+      <p><strong>GPS Points:</strong> {{ tripService.completedTrip.gpsPoints.length }}</p>
+      <p><strong>Speed Readings:</strong> {{ tripService.completedTrip.speedReadings.length }}</p>
     </div>
-
 
     <button class="primary-btn" (click)="startNewTrip()">
       Start New Trip
@@ -115,24 +21,15 @@
     <button class="secondary-btn" (click)="goToMyDriving()">
       Back to My Driving
     </button>
-
   </div>
 
-
   <ng-template #noTrip>
-
     <div class="card">
-
       <h3>No Trip Data Available</h3>
-
       <p>Please start and end a trip first.</p>
-
       <button class="primary-btn" (click)="goToMyDriving()">
         Go to My Driving
       </button>
-
     </div>
-
   </ng-template>
-
 </div>

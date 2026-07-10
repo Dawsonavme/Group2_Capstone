@@ -1,28 +1,11 @@
 import { Injectable } from '@angular/core';
 
-export interface GPSPoint {
-  latitude: number;
-  longitude: number;
-  timestamp: number;
-  accuracy?: number;
-  speed?: number;
-  lowAccuracy?: boolean;
-}
-
-export interface TripLocation extends GPSPoint {}
-
 export interface Trip {
   id: number;
   startTime: Date;
   endTime?: Date;
   duration?: string;
-
-  startLocation?: TripLocation;
-  endLocation?: TripLocation;
-
-  gpsPoints: GPSPoint[];
-  gpsPointCount: number;
-
+  gpsPoints: any[];
   speedReadings: any[];
   status: 'active' | 'completed';
 }
@@ -45,24 +28,27 @@ export class TripService {
       id: Date.now(),
       startTime: new Date(),
       gpsPoints: [],
-      gpsPointCount: 0,
       speedReadings: [],
       status: 'active'
     };
+
     this.tripStatus = 'active';
     this.completedTrip = null;
     return true;
   }
 
   endTrip(): boolean {
-    if (!this.activeTrip || this.tripStatus !== 'active') return false;
+    if (!this.activeTrip || this.tripStatus !== 'active') {
+      return false;
+    }
 
     this.activeTrip.endTime = new Date();
     this.activeTrip.status = 'completed';
-    this.activeTrip.duration = this.calculateDuration(this.activeTrip.startTime, this.activeTrip.endTime!);
+    this.activeTrip.duration = this.calculateDuration(this.activeTrip.startTime, this.activeTrip.endTime);
 
     this.completedTrip = { ...this.activeTrip };
     this.tripStatus = 'completed';
+
     return true;
   }
 

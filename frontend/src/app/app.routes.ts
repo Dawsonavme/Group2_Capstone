@@ -39,23 +39,15 @@ export const routes: Routes = [
     component: Recommendations
   },
 {
-  path: 'tabs',
-  children: [
-    {
-      path: 'my-driving',
-      loadComponent: () =>
-        import('../app/pages/my-driving/my-driving')
-        .then(m => m.MyDriving)
-    }
-  ]},
-  {
-  path: 'active-trip',
-  loadComponent: () =>
-    import('../app/pages/active-trip/active-trip')
-    .then(m => m.ActiveTrip)
-},
+    path: 'active-trip',
+    loadComponent: () => 
+      import('./pages/active-trip/active-trip').then(m => m.ActiveTrip)
+  },
 {
   path: 'trip-summary',
   loadComponent: () => 
     import('./pages/trip-summary/trip-summary').then(m => m.TripSummary)
-},]
+},
+  // Catch-all
+  { path: '**', redirectTo: 'my-driving' }
+];

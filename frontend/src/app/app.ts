@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
+
 @Component({
   selector: 'app-root',
 
@@ -13,4 +14,5 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class App {
   // Root component for the Driver Safety Analytics frontend
+  
 }

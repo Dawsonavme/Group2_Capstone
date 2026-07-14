@@ -1,22 +1,46 @@
+<!-- frontend/src/app/pages/active-trip/active-trip.html -->
+
 <div class="page">
-  <h2>Active Trip</h2>
 
-  <div class="card">
-    <h3>Trip Recording Active</h3>
-    <p><strong>Status:</strong> {{ tripService.tripStatus }}</p>
-
-    <ng-container *ngIf="tripService.activeTrip">
-      <p><strong>Trip ID:</strong> {{ tripService.activeTrip.id }}</p>
-      <p><strong>Start Time:</strong> {{ tripService.activeTrip.startTime | date:'medium' }}</p>
-    </ng-container>
+  <div class="header">
+    <h1>Active Trip</h1>
   </div>
 
-  <!-- Improved End Trip Button -->
- <!-- Improved End Trip Button -->
-<button 
-  class="end-trip-btn"
-  *ngIf="tripService.tripStatus === 'active'"
-  (click)="endTrip()">
-  End Trip
-</button>
+  <div class="trip-info" *ngIf="tripService.activeTrip; else noActiveTrip">
+
+    <div class="status-card">
+      <span class="status-badge">Trip Recording Active</span>
+      <p><strong>Status:</strong> {{ tripService.tripStatus }}</p>
+      <p><strong>Trip ID:</strong> {{ tripService.activeTrip.id }}</p>
+      <p><strong>Start Time:</strong> {{ tripService.activeTrip.startTime | date:'medium' }}</p>
+      <p><strong>GPS Points Collected:</strong> {{ tripService.activeTrip.gpsPointCount || 0 }}</p>
+    </div>
+
+    <div class="location-info">
+      <h3>Current Trip Details</h3>
+      <p *ngIf="tripService.activeTrip.startLocation">
+        <strong>Start Location:</strong><br>
+        Lat: {{ tripService.activeTrip.startLocation.latitude | number:'1.6-6' }}<br>
+        Lon: {{ tripService.activeTrip.startLocation.longitude | number:'1.6-6' }}
+      </p>
+    </div>
+
+  </div>
+
+  <ng-template #noActiveTrip>
+    <div class="no-trip">
+      <p>No active trip found.</p>
+      <p class="muted">Start a trip from the My Driving tab.</p>
+    </div>
+  </ng-template>
+
+  <div class="actions">
+    <button 
+      class="end-trip-btn"
+      (click)="endTrip()"
+      [disabled]="isEnding">
+      {{ isEnding ? 'Ending Trip...' : '🛑 End Trip' }}
+    </button>
+  </div>
+
 </div>

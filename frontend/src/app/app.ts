@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
-import { IonApp, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/angular/standalone";
 
 
 @Component({
@@ -8,7 +7,7 @@ import { IonApp, IonHeader, IonToolbar, IonTitle, IonContent } from "@ionic/angu
 
   // RouterOutlet displays the selected tab page
   // RouterLink and RouterLinkActive support tab navigation
-  imports: [IonContent, IonTitle, IonToolbar, IonHeader, IonApp, RouterOutlet, RouterLink, RouterLinkActive],
+  imports: [RouterOutlet, RouterLink, RouterLinkActive],
 
   templateUrl: './app.html',
   styleUrl: './app.css'

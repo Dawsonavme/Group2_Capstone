@@ -10,21 +10,23 @@ export class LocationService {
   private watchId: string | null = null;
   private lastUpdate = 0;
 
-  // Request location permission
   async requestPermission(): Promise<boolean> {
     try {
       const status = await Geolocation.checkPermissions();
-      if (status.location === 'granted') return true;
+
+      if (status.location === 'granted') {
+        return true;
+      }
 
       const permission = await Geolocation.requestPermissions();
+
       return permission.location === 'granted';
-    } catch (e) {
-      console.error('Permission error:', e);
+    } catch (error) {
+      console.error('Permission error:', error);
       return false;
     }
   }
 
-  // Get single current location (used for start & end)
   async getCurrentLocation(): Promise<GPSPoint | null> {
     try {
       const position = await Geolocation.getCurrentPosition({
@@ -33,23 +35,38 @@ export class LocationService {
         maximumAge: 0
       });
 
+      const rawSpeed = position.coords.speed;
+
+      const validSpeed =
+        rawSpeed !== null &&
+        rawSpeed !== undefined &&
+        !Number.isNaN(rawSpeed) &&
+        rawSpeed >= 0;
+
       return {
         latitude: position.coords.latitude,
         longitude: position.coords.longitude,
         timestamp: position.timestamp,
         accuracy: position.coords.accuracy,
-        speed: position.coords.speed ?? undefined,
-        lowAccuracy: position.coords.accuracy == null || position.coords.accuracy > 50
+        speed: validSpeed ? rawSpeed : undefined,
+        speedKmh: validSpeed ? rawSpeed * 3.6 : undefined,
+        lowAccuracy:
+          position.coords.accuracy == null ||
+          position.coords.accuracy > 50
       };
     } catch (error) {
-      console.error("getCurrentLocation error:", error);
+      console.error('getCurrentLocation error:', error);
       return null;
     }
   }
 
-  // Start continuous GPS tracking
-  async startTracking(callback: (point: GPSPoint) => void): Promise<void> {
-    if (this.watchId) await this.stopTracking();
+  async startTracking(
+    callback: (point: GPSPoint) => void
+  ): Promise<void> {
+
+    if (this.watchId) {
+      await this.stopTracking();
+    }
 
     this.lastUpdate = Date.now();
 
@@ -60,47 +77,77 @@ export class LocationService {
           timeout: 3000,
           maximumAge: 1000
         },
-        (position, err) => {
-          if (err || !position) return;
+        (position, error) => {
 
-          // Validation: must have lat/lon
-          if (position.coords.latitude == null || position.coords.longitude == null) {
-            console.warn('Received invalid GPS point (missing lat/lon)');
+          if (error || !position) {
             return;
           }
+
+          if (
+            position.coords.latitude == null ||
+            position.coords.longitude == null
+          ) {
+            console.warn('Invalid GPS point received');
+            return;
+          }
+
+          const rawSpeed = position.coords.speed;
+
+          const validSpeed =
+            rawSpeed !== null &&
+            rawSpeed !== undefined &&
+            !Number.isNaN(rawSpeed) &&
+            rawSpeed >= 0;
 
           const point: GPSPoint = {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             timestamp: position.timestamp,
             accuracy: position.coords.accuracy,
-            speed: position.coords.speed ?? undefined,
-            lowAccuracy: !position.coords.accuracy || position.coords.accuracy > 50
+            speed: validSpeed ? rawSpeed : undefined,
+            speedKmh: validSpeed ? rawSpeed * 3.6 : undefined,
+            lowAccuracy:
+              position.coords.accuracy == null ||
+              position.coords.accuracy > 50
           };
 
+          console.log('GPS point collected:', {
+            latitude: point.latitude,
+            longitude: point.longitude,
+            accuracy: point.accuracy,
+            speedMps: point.speed,
+            speedKmh: point.speedKmh,
+            lowAccuracy: point.lowAccuracy
+          });
+
           const now = Date.now();
-          if (now - this.lastUpdate > 2000) {  // Throttle
+
+          if (now - this.lastUpdate >= 2000) {
             this.lastUpdate = now;
-            console.log("📍 GPS Point collected:", point);
             callback(point);
           }
         }
       );
-      console.log('✅ GPS tracking started');
+
+      console.log('GPS tracking started');
     } catch (error) {
-      console.error('Failed to start GPS tracking:', error);
+      console.error('Failed to start tracking:', error);
     }
   }
 
-  // Stop GPS tracking
   async stopTracking(): Promise<void> {
-    if (!this.watchId) return;
+    if (!this.watchId) {
+      return;
+    }
 
     try {
-      await Geolocation.clearWatch({ id: this.watchId });
-      console.log('✅ GPS tracking stopped');
-    } catch (e) {
-      console.error("Error stopping watch:", e);
+      await Geolocation.clearWatch({
+        id: this.watchId
+      });
+
+      console.log('GPS tracking stopped');
+    } catch (error) {
+      console.error('Stop tracking error:', error);
     } finally {
       this.watchId = null;
       this.lastUpdate = 0;

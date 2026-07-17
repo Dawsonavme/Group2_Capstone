@@ -1,0 +1,89 @@
+<div class="page">
+
+  <div class="page-header">
+    <h1>Trip Details</h1>
+    <p>Historical trip information.</p>
+  </div>
+
+  <button
+    class="back-btn"
+    type="button"
+    (click)="goBack()">
+
+    Back to Trip History
+
+  </button>
+
+  <p *ngIf="isLoading">
+    Loading trip...
+  </p>
+
+  <p *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
+
+  <div
+    class="card"
+    *ngIf="trip">
+
+    <h2>
+      Trip #{{ trip.id }}
+    </h2>
+
+    <hr>
+
+    <p>
+      <strong>Status:</strong>
+      {{ trip.status | titlecase }}
+    </p>
+
+    <p>
+      <strong>Started:</strong>
+      {{ trip.startTime | date:'medium' }}
+    </p>
+
+    <p>
+      <strong>Ended:</strong>
+      {{ trip.endTime | date:'medium' }}
+    </p>
+
+    <p>
+      <strong>GPS Points:</strong>
+      {{ trip.gpsPointCount }}
+    </p>
+
+    <p>
+      <strong>Distance:</strong>
+      {{ trip.distanceKm }} km
+    </p>
+
+    <hr>
+
+    <h3>Speed Analytics</h3>
+
+    <p>
+      <strong>Average Speed:</strong>
+      {{ trip.averageSpeedKmh }} km/h
+    </p>
+
+    <p>
+      <strong>Maximum Speed:</strong>
+      {{ trip.maximumSpeedKmh }} km/h
+    </p>
+
+    <p>
+      <strong>Threshold Exceeded:</strong>
+      {{ trip.thresholdExceededCount }}
+    </p>
+
+    <hr>
+
+    <h3>Trip Message</h3>
+
+    <p class="message">
+      {{ trip.postTripMessage }}
+    </p>
+
+  </div>
+
+</div>

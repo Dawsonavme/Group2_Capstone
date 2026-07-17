@@ -2,19 +2,18 @@
   <h2>Trip Summary</h2>
 
   <div class="card" *ngIf="tripService.completedTrip; else noTrip">
-
     <h3>Trip Completed Successfully</h3>
 
     <p><strong>Trip ID:</strong> {{ tripService.completedTrip.id }}</p>
 
     <p>
       <strong>Start Time:</strong>
-      {{ tripService.completedTrip.startTime | date:'medium' }}
+      {{ tripService.completedTrip.startTime | date: 'medium' }}
     </p>
 
     <p>
       <strong>End Time:</strong>
-      {{ tripService.completedTrip.endTime | date:'medium' }}
+      {{ tripService.completedTrip.endTime | date: 'medium' }}
     </p>
 
     <p>
@@ -22,12 +21,17 @@
       {{ tripService.completedTrip.duration }}
     </p>
 
+    <p>
+      <strong>Distance:</strong>
+      {{ tripService.completedTrip.distanceKm ?? 0 | number: '1.2-2' }}
+      km
+    </p>
 
     <!-- ============================= -->
     <!-- START LOCATION -->
     <!-- ============================= -->
 
-    <hr>
+    <hr />
 
     <h4>Start Location</h4>
 
@@ -51,12 +55,11 @@
       {{ tripService.completedTrip.startLocation?.timestamp }}
     </p>
 
-
     <!-- ============================= -->
     <!-- END LOCATION -->
     <!-- ============================= -->
 
-    <hr>
+    <hr />
 
     <h4>End Location</h4>
 
@@ -80,59 +83,76 @@
       {{ tripService.completedTrip.endLocation?.timestamp }}
     </p>
 
-
     <!-- ============================= -->
     <!-- GPS DATA -->
     <!-- ============================= -->
 
-    <hr>
+    <hr />
 
     <p>
       <strong>GPS Point Count:</strong>
       {{ tripService.completedTrip.gpsPointCount }}
     </p>
 
-
     <div class="summary-stats">
-
       <p>
         <strong>GPS Points:</strong>
-       {{ tripService.completedTrip.gpsPoints?.length || 0 }}
+        {{ tripService.completedTrip.gpsPoints?.length || 0 }}
       </p>
 
       <p>
-        <strong>Speed Readings:</strong>
-        {{ tripService.completedTrip.speedReadings?.length || 0 }}
+        <strong>Valid Speed Readings:</strong>
+        {{ getValidSpeedReadingCount() }}
       </p>
 
+      <p>
+        <strong>Average Speed:</strong>
+        {{ tripService.completedTrip.averageSpeed ?? 0 | number: '1.1-1' }}
+        km/h
+      </p>
+
+      <p>
+        <strong>Maximum Speed:</strong>
+        {{ tripService.completedTrip.maximumSpeed ?? 0 | number: '1.1-1' }}
+        km/h
+      </p>
+
+      <p>
+        <strong>Prototype Speed Threshold:</strong>
+        {{ tripService.completedTrip.prototypeThreshold ?? 50 }}
+        km/h
+      </p>
+
+      <p>
+        <strong>Threshold Exceeded Count:</strong>
+        {{ tripService.completedTrip.thresholdExceededCount ?? 0 }}
+      </p>
     </div>
 
+    <div
+  class="recommendation"
+  *ngIf="tripService.completedTrip.postTripMessage">
 
-    <button class="primary-btn" (click)="startNewTrip()">
-      Start New Trip
-    </button>
+  <h4>Trip Safety Message</h4>
 
-    <button class="secondary-btn" (click)="goToMyDriving()">
-      Back to My Driving
-    </button>
+  <p>
+    {{ tripService.completedTrip.postTripMessage }}
+  </p>
 
+</div>
+
+    <button class="primary-btn" (click)="startNewTrip()">Start New Trip</button>
+
+    <button class="secondary-btn" (click)="goToMyDriving()">Back to My Driving</button>
   </div>
 
-
   <ng-template #noTrip>
-
     <div class="card">
-
       <h3>No Trip Data Available</h3>
 
       <p>Please start and end a trip first.</p>
 
-      <button class="primary-btn" (click)="goToMyDriving()">
-        Go to My Driving
-      </button>
-
+      <button class="primary-btn" (click)="goToMyDriving()">Go to My Driving</button>
     </div>
-
   </ng-template>
-
 </div>

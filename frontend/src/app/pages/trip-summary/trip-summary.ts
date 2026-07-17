@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { TripService } from '../../services/trip';
@@ -10,7 +10,7 @@ import { TripService } from '../../services/trip';
   templateUrl: './trip-summary.html',
   styleUrl: './trip-summary.css'
 })
-export class TripSummary {
+export class TripSummary implements OnInit {
 
   constructor(
     public tripService: TripService,
@@ -25,4 +25,24 @@ export class TripSummary {
   goToMyDriving() {
     this.router.navigate(['/my-driving']);
   }
+
+  async ngOnInit(): Promise<void> {
+  const trips = await this.tripService.getAllTrips();
+
+  console.log('Trip history loaded in component:', trips);
+}
+
+getValidSpeedReadingCount(): number {
+  const trip = this.tripService.completedTrip;
+
+  if (!trip) {
+    return 0;
+  }
+
+  return trip.gpsPoints.filter(
+    point =>
+      point.speedKmh !== undefined &&
+      Number.isFinite(point.speedKmh)
+  ).length;
+}
 }

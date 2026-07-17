@@ -9,21 +9,99 @@
   <div class="trip-info" *ngIf="tripService.activeTrip; else noActiveTrip">
 
     <div class="status-card">
-      <span class="status-badge">Trip Recording Active</span>
-      <p><strong>Status:</strong> {{ tripService.tripStatus }}</p>
-      <p><strong>Trip ID:</strong> {{ tripService.activeTrip.id }}</p>
-      <p><strong>Start Time:</strong> {{ tripService.activeTrip.startTime | date:'medium' }}</p>
-      <p><strong>GPS Points Collected:</strong> {{ tripService.activeTrip.gpsPointCount || 0 }}</p>
-    </div>
+  <span class="status-badge">
+    Trip Recording Active
+  </span>
+
+  <p>
+    <strong>Status:</strong>
+    {{ tripService.tripStatus }}
+  </p>
+
+  <p>
+    <strong>Trip ID:</strong>
+    {{ tripService.activeTrip.id }}
+  </p>
+
+  <p>
+    <strong>Start Time:</strong>
+    {{
+      tripService.activeTrip.startTime
+        | date:'medium'
+    }}
+  </p>
+
+  <p>
+    <strong>Elapsed Time:</strong>
+    {{ elapsedTime }}
+  </p>
+
+  <p>
+    <strong>GPS Points Collected:</strong>
+    {{ tripService.activeTrip.gpsPointCount || 0 }}
+  </p>
+</div>
 
     <div class="location-info">
-      <h3>Current Trip Details</h3>
-      <p *ngIf="tripService.activeTrip.startLocation">
-        <strong>Start Location:</strong><br>
-        Lat: {{ tripService.activeTrip.startLocation.latitude | number:'1.6-6' }}<br>
-        Lon: {{ tripService.activeTrip.startLocation.longitude | number:'1.6-6' }}
-      </p>
-    </div>
+  <h3>Current Trip Details</h3>
+
+  <p *ngIf="tripService.activeTrip.startLocation">
+    <strong>Start Location:</strong><br>
+    Lat:
+    {{
+      tripService.activeTrip.startLocation.latitude
+        | number:'1.6-6'
+    }}
+    <br>
+    Lon:
+    {{
+      tripService.activeTrip.startLocation.longitude
+        | number:'1.6-6'
+    }}
+  </p>
+
+  <hr>
+
+  <p *ngIf="latestGPSPoint; else noCurrentPoint">
+    <strong>Current Location:</strong><br>
+    Lat:
+    {{
+      latestGPSPoint.latitude
+        | number:'1.6-6'
+    }}
+    <br>
+    Lon:
+    {{
+      latestGPSPoint.longitude
+        | number:'1.6-6'
+    }}
+    <br>
+    Accuracy:
+    {{
+      latestGPSPoint.accuracy ?? 0
+        | number:'1.0-0'
+    }}
+    m
+  </p>
+
+  <ng-template #noCurrentPoint>
+    <p class="muted">
+      Waiting for the first GPS update...
+    </p>
+  </ng-template>
+
+  <p>
+    <strong>Current Speed:</strong>
+
+    <span *ngIf="currentSpeedKmh !== null; else speedUnavailable">
+      {{ currentSpeedKmh | number:'1.1-1' }} km/h
+    </span>
+
+    <ng-template #speedUnavailable>
+      Speed unavailable
+    </ng-template>
+  </p>
+</div>
 
   </div>
 

@@ -58,4 +58,18 @@ export const routes: Routes = [
   path: 'trip-summary',
   loadComponent: () => 
     import('./pages/trip-summary/trip-summary').then(m => m.TripSummary)
-},]
+},
+{
+  path: 'trip-history',
+  loadComponent: () =>
+    import('./pages/trip-history/trip-history')
+      .then(m => m.TripHistory)
+},
+
+{
+  path: 'trip-history/:tripId',
+  loadComponent: () =>
+    import('./pages/trip-details/trip-details')
+      .then(m => m.TripDetails)
+}
+,]

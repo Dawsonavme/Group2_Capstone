@@ -1,7 +1,15 @@
-import { Component } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  OnInit
+} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { TripService } from '../../services/trip';
+import {
+  BackendTripResponse,
+  Trip,
+  TripService
+} from '../../services/trip';
 import { LocationService } from '../../services/location.service';
 
 @Component({
@@ -11,117 +19,321 @@ import { LocationService } from '../../services/location.service';
   templateUrl: './my-driving.html',
   styleUrl: './my-driving.css'
 })
-export class MyDriving {
+export class MyDriving implements OnInit {
 
   isStartingTrip = false;
 
-  // Risk Score
-  driverRiskScore = 68;
-  riskLevel = 'Moderate Risk';
-  weeklyImprovement = '+8 points improved vs last 7 days';
+  // Dashboard analytics
+  driverRiskScore = 100;
+  riskLevel = 'Low Risk';
+  weeklyImprovement =
+    'No completed trip analytics available.';
 
-  // Driving Metrics
-  speeding = 14;
-  harshBraking = 18;
-  rapidAcceleration = 22;
-  nightDriving = 35;
-  tripsThisWeek = 12;
-  phoneUsage = 2;
+  speeding = 0;
+  harshBraking = 0;
+  rapidAcceleration = 0;
+  nightDriving = 0;
+  tripsThisWeek = 0;
+  phoneUsage = 0;
 
   // Recent Trips
-  recentTrips = [
-    {
-      id: 1,
-      date: 'May 15, 2024',
-      time: '6:45 PM',
-      distance: '21 km',
-      duration: '28 min',
-      type: 'Night Trip',
-      summary: 'Speeding: High • Braking: High • Acceleration: Moderate',
-      score: 62
-    },
-    {
-      id: 2,
-      date: 'May 14, 2024',
-      time: '4:20 PM',
-      distance: '14 km',
-      duration: '19 min',
-      type: 'City Trip',
-      summary: 'Speeding: Low • Braking: Moderate • Acceleration: Good',
-      score: 78
-    },
-    {
-      id: 3,
-      date: 'May 13, 2024',
-      time: '8:10 AM',
-      distance: '32 km',
-      duration: '36 min',
-      type: 'Highway Trip',
-      summary: 'Speeding: Moderate • Braking: Low • Acceleration: Moderate',
-      score: 71
-    }
-  ];
+  recentTrips: BackendTripResponse[] = [];
+
+  isLoadingTrips = false;
+  tripHistoryError = '';
 
   constructor(
-    public tripService: TripService,
-    private router: Router,
-    private locationService: LocationService
-  ) {}
+  public tripService: TripService,
+  private router: Router,
+  private locationService: LocationService,
+  private changeDetectorRef: ChangeDetectorRef
+) {}
+
+  async ngOnInit(): Promise<void> {
+    await this.loadRecentTrips();
+  }
+
+  async loadRecentTrips(): Promise<void> {
+    this.isLoadingTrips = true;
+    this.tripHistoryError = '';
+
+    try {
+      const trips =
+        await this.tripService.getAllTrips();
+
+      this.recentTrips =
+        trips.slice(0, 3);
+
+      console.log(
+        'Recent trips displayed:',
+        this.recentTrips
+      );
+
+      this.loadLatestTripAnalytics();
+    } catch (error) {
+      console.error(
+        'Could not load recent trips:',
+        error
+      );
+
+      this.tripHistoryError =
+        'Could not load recent trips.';
+
+      this.recentTrips = [];
+    } finally {
+      this.isLoadingTrips = false;
+
+  this.changeDetectorRef.detectChanges();
+    }
+  }
+
+  loadLatestTripAnalytics(): void {
+    const completedTrip =
+      this.tripService.completedTrip;
+
+    if (completedTrip) {
+      this.speeding =
+        completedTrip.thresholdExceededCount ?? 0;
+
+      this.driverRiskScore =
+        this.calculateRiskScore(
+          completedTrip
+        );
+
+      this.riskLevel =
+        this.getRiskLevel(
+          this.driverRiskScore
+        );
+
+      this.weeklyImprovement =
+        completedTrip.postTripMessage ??
+        'Trip analytics were calculated successfully.';
+
+      this.tripsThisWeek =
+        this.recentTrips.length;
+
+      return;
+    }
+
+    const latestCompletedTrip =
+      this.recentTrips.find(
+        trip => trip.status === 'completed'
+      );
+
+    if (!latestCompletedTrip) {
+      this.tripsThisWeek =
+        this.recentTrips.length;
+
+      return;
+    }
+
+    this.speeding =
+      latestCompletedTrip
+        .thresholdExceededCount ?? 0;
+
+    this.driverRiskScore =
+      this.calculateBackendRiskScore(
+        latestCompletedTrip
+      );
+
+    this.riskLevel =
+      this.getRiskLevel(
+        this.driverRiskScore
+      );
+
+    this.weeklyImprovement =
+      latestCompletedTrip.postTripMessage ??
+      'No persisted speed analytics are available for this trip.';
+
+    this.tripsThisWeek =
+      this.recentTrips.length;
+  }
+
+  calculateBackendRiskScore(
+    trip: BackendTripResponse
+  ): number {
+    let score = 100;
+
+    score -=
+      (trip.thresholdExceededCount ?? 0) * 5;
+
+    if ((trip.maximumSpeedKmh ?? 0) > 100) {
+      score -= 10;
+    }
+
+    if (score < 0) {
+      score = 0;
+    }
+
+    return score;
+  }
+
+  calculateRiskScore(
+    trip: Trip
+  ): number {
+    let score = 100;
+
+    score -=
+      (trip.thresholdExceededCount ?? 0) * 5;
+
+    if ((trip.maximumSpeed ?? 0) > 100) {
+      score -= 10;
+    }
+
+    if (score < 0) {
+      score = 0;
+    }
+
+    return score;
+  }
+
+  getRiskLevel(
+    score: number
+  ): string {
+    if (score >= 80) {
+      return 'Low Risk';
+    }
+
+    if (score >= 50) {
+      return 'Moderate Risk';
+    }
+
+    return 'High Risk';
+  }
 
   // ========================
   // START TRIP
   // ========================
-  async startTrip() {
-    if (this.isStartingTrip) return;
+  async startTrip(): Promise<void> {
+    if (this.isStartingTrip) {
+      return;
+    }
 
     this.isStartingTrip = true;
 
     try {
-      // 1. Request permission
-      const granted = await this.locationService.requestPermission();
+      console.log(
+        'Step 1 - Requesting permission'
+      );
+
+      const granted =
+        await this.locationService
+          .requestPermission();
+
+      console.log(
+        'Permission result:',
+        granted
+      );
+
       if (!granted) {
-        alert("Location permission is required to start a trip.");
+        alert(
+          'Location permission is required to start a trip.'
+        );
+
         return;
       }
 
-      // 2. Get starting location
-      const startLocation = await this.locationService.getCurrentLocation();
+      console.log(
+        'Step 2 - Getting location'
+      );
+
+      const startLocation =
+        await this.locationService
+          .getCurrentLocation();
+
+      console.log(
+        'Start location:',
+        startLocation
+      );
+
       if (!startLocation) {
-        alert("Unable to get current location. Please enable GPS and try again.");
+        alert(
+          'Unable to get current location. Please enable GPS and try again.'
+        );
+
         return;
       }
 
-      // 3. Start the trip in service
-      const success = this.tripService.startTrip();
-      if (!success || !this.tripService.activeTrip) {
-        alert("Could not start trip. Please try again.");
+      console.log(
+        'Step 3 - Calling backend'
+      );
+
+      const success =
+        await this.tripService
+          .startTrip(startLocation);
+
+      console.log(
+        'Backend returned:',
+        success
+      );
+
+      if (
+        !success ||
+        !this.tripService.activeTrip
+      ) {
+        alert(
+          'Could not start trip. Please try again.'
+        );
+
         return;
       }
 
-      // 4. Save start location
-      this.tripService.activeTrip.startLocation = startLocation;
+      console.log(
+        'Step 4 - Starting GPS tracking'
+      );
 
-      // 5. Start continuous GPS tracking
-      await this.locationService.startTracking((point) => {
-        if (this.tripService.activeTrip) {
-          this.tripService.activeTrip.gpsPoints.push(point);
-          this.tripService.activeTrip.gpsPointCount = this.tripService.activeTrip.gpsPoints.length;
+      await this.locationService.startTracking(
+        (point) => {
+          if (this.tripService.activeTrip) {
+            this.tripService.activeTrip
+              .gpsPoints
+              .push(point);
+
+            this.tripService.activeTrip
+              .gpsPointCount =
+              this.tripService.activeTrip
+                .gpsPoints.length;
+          }
         }
-      });
+      );
 
-      // 6. Navigate to active trip screen
-      await this.router.navigate(['/active-trip']);
+      console.log(
+        'GPS tracking started'
+      );
 
+      console.log(
+        'Step 5 - Navigating'
+      );
+
+      await this.router.navigate(
+        ['/active-trip']
+      );
     } catch (error) {
-      console.error("Start trip failed:", error);
-      alert("Failed to start trip. Please check your GPS settings.");
+      console.error(
+        'Start trip failed:',
+        error
+      );
+
+      alert(
+        'Failed to start trip. Please check your GPS settings.'
+      );
     } finally {
       this.isStartingTrip = false;
     }
   }
 
-  // TrackBy for *ngFor performance
-  trackTrip(index: number, trip: any): number {
+  viewAllTrips(event: Event): void {
+  event.preventDefault();
+
+  this.router.navigate(
+    ['/trip-history']
+  );
+}
+
+  trackTrip(
+    index: number,
+    trip: BackendTripResponse
+  ): number {
     return trip.id ?? index;
   }
 }

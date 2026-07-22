@@ -5,113 +5,113 @@ It is recommended to perform the following smoke tests before demonstrating the 
 
 ## Check Project Setup
 
-* [ ] Clone the latest project from GitHub.
+* [X] Clone the latest project from GitHub.
 
-* [ ] Install project dependencies.
+* [X] Install project dependencies.
 
 ```bash
 npm install
 ```
 
-* [ ] Build the Ionic application.
+* [X] Build the Ionic application.
 
 ```bash
 ionic build
 ```
 
-* [ ] Sync the Capacitor Android project.
+* [X] Sync the Capacitor Android project.
 
 ```bash
 npx cap sync android
 ```
 
-* [ ] Open the Android project.
+* [X] Open the Android project.
 
 ```bash
 npx cap open android
 ```
 
-* [ ] Start the Android Emulator.
+* [X] Start the Android Emulator.
 
-* [ ] Run the application successfully.
+* [X] Run the application successfully.
 
 ---
 
 # Check Home Screen
 
-* [ ] The application launches without crashing.
+* [X] The application launches without crashing.
 
-* [ ] The Home screen is displayed.
+* [X] The Home screen is displayed.
 
-* [ ] The **Start Trip** button is visible.
+* [X] The **Start Trip** button is visible.
 
-* [ ] Navigation menu and page layout display correctly.
+* [X] Navigation menu and page layout display correctly.
 
 ---
 
 # Check Location Permission
 
-* [ ] Tap **Start Trip**.
+* [X] Tap **Start Trip**.
 
-* [ ] The application requests location permission.
+* [X] The application requests location permission.
 
-* [ ] Grant location permission.
+* [X] Grant location permission.
 
-* [ ] The application enters **Active Trip** mode.
+* [X] The application enters **Active Trip** mode.
 
 If permission is denied:
 
-* [ ] A clear message explains that location permission is required.
+* [X] A clear message explains that location permission is required.
 
-* [ ] GPS tracking does not begin.
+* [X] GPS tracking does not begin.
 
 ---
 
 # Check Active Trip
 
-* [ ] GPS tracking starts successfully.
+* [X] GPS tracking starts successfully.
 
-* [ ] Current GPS coordinates are collected.
+* [X] Current GPS coordinates are collected.
 
-* [ ] GPS point count increases while moving.
+* [X] GPS point count increases while moving.
 
-* [ ] Speed is recorded when available.
+* [X] Speed is recorded when available.
 
-* [ ] If speed is unavailable, the application handles it safely.
+* [X] If speed is unavailable, the application handles it safely.
 
-* [ ] Trip duration updates during the trip.
+* [X] Trip duration updates during the trip.
 
 ---
 
 # Check End Trip
 
-* [ ] Tap **End Trip**.
+* [X] Tap **End Trip**.
 
-* [ ] GPS tracking stops.
+* [X] GPS tracking stops.
 
-* [ ] Location listener is removed.
+* [X] Location listener is removed.
 
-* [ ] Trip data is saved successfully (if backend is implemented).
+* [X] Trip data is saved successfully (if backend is implemented).
 
 ---
 
 # Check Trip Summary
 
-* [ ] Trip Summary screen appears.
+* [X] Trip Summary screen appears.
 
-* [ ] Start location is displayed.
+* [X] Start location is displayed.
 
-* [ ] End location is displayed.
+* [X] End location is displayed.
 
-* [ ] Trip duration is displayed.
+* [X] Trip duration is displayed.
 
-* [ ] GPS point count is displayed.
+* [X] GPS point count is displayed.
 
-* [ ] Average speed is displayed (if available).
+* [X] Average speed is displayed (if available).
 
-* [ ] Maximum speed is displayed (if available).
+* [X] Maximum speed is displayed (if available).
 
-* [ ] Estimated distance is displayed (if implemented).
+* [X] Estimated distance is displayed (if implemented).
 
 ---
 
@@ -136,20 +136,21 @@ Save the following screenshots in:
 testing/screenshots/
 ```
 
-* [ ] Home Screen
+* [X] Home Screen
 
-* [ ] Active Trip Screen
+* [X] Active Trip Screen
 
-* [ ] Trip Summary Screen
+* [X] Trip Summary Screen
 
-* [ ] Location Permission Dialog (optional)
+* [X] Location Permission Dialog (optional)
 
 ---
 
 # Smoke Test Result
 
-* [ ] All critical functions passed.
+* [X] All critical functions passed.
 
-* [ ] Prototype is ready for demonstration.
+* [X] Prototype is ready for demonstration.
 
-* [ ] Any issues found have been documented in GitHub Issues.
+* [X] Any issues found have been documented in GitHub Issues.
+

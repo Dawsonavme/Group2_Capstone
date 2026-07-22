@@ -117,16 +117,16 @@ If permission is denied:
 
 # Testing Information
 
-| Item              | Result             |
-| ----------------- | ------------------ |
-| Tester            | __________________ |
-| Date              | __________________ |
-| Device / Emulator | __________________ |
-| Android Version   | __________________ |
-| Pass / Fail       | __________________ |
-| Notes             | __________________ |
 
----
+| Test            | Pass | Fail | Notes |
+| --------------- | ---- | ---- | ----- |
+| Launch App      | ☑    | ☐    |       |
+| Home Screen     | ☑    | ☐    |       |
+| Start Trip      | ☑    | ☐    |       |
+| GPS Recording   | ☑    | ☐    |       |
+| Speed Recording | ☑    | ☐    |       |
+| End Trip        | ☑    | ☐    |       |
+| Trip Summary    | ☑    | ☐    |       |
 
 # Screenshots
 

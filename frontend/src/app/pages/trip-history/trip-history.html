@@ -16,6 +16,21 @@
 
   </button>
 
+  <div
+    class="sync-status"
+    *ngIf="!isLoading">
+
+    <p>
+      Pending uploads:
+      {{ pendingTripCount }}
+    </p>
+
+    <p *ngIf="syncMessage">
+      {{ syncMessage }}
+    </p>
+
+  </div>
+
   <p *ngIf="isLoading">
     Loading trip history...
   </p>
@@ -42,14 +57,14 @@
       trips.length > 0">
 
     <div
-  class="trip-card"
-  role="button"
-  tabindex="0"
-  (click)="viewTripDetails(trip.id)"
-  (keydown.enter)="viewTripDetails(trip.id)"
-  *ngFor="
-    let trip of trips;
-    trackBy: trackTrip">
+      class="trip-card"
+      role="button"
+      tabindex="0"
+      (click)="viewTripDetails(trip.id)"
+      (keydown.enter)="viewTripDetails(trip.id)"
+      *ngFor="
+        let trip of trips;
+        trackBy: trackTrip">
 
       <div class="trip-info">
 

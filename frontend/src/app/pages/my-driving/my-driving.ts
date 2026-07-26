@@ -11,6 +11,7 @@ import {
   TripService
 } from '../../services/trip';
 import { LocationService } from '../../services/location.service';
+import { PendingTripService } from '../../services/pending-trip.service';
 
 @Component({
   selector: 'app-my-driving',
@@ -42,12 +43,17 @@ export class MyDriving implements OnInit {
   isLoadingTrips = false;
   tripHistoryError = '';
 
+  // Pending trip synchronization
+  pendingTripCount = 0;
+  syncMessage = '';
+
   constructor(
-  public tripService: TripService,
-  private router: Router,
-  private locationService: LocationService,
-  private changeDetectorRef: ChangeDetectorRef
-) {}
+    public tripService: TripService,
+    private pendingTripService: PendingTripService,
+    private router: Router,
+    private locationService: LocationService,
+    private changeDetectorRef: ChangeDetectorRef
+  ) {}
 
   async ngOnInit(): Promise<void> {
     await this.loadRecentTrips();
@@ -56,8 +62,40 @@ export class MyDriving implements OnInit {
   async loadRecentTrips(): Promise<void> {
     this.isLoadingTrips = true;
     this.tripHistoryError = '';
+    this.syncMessage = '';
+
+    this.pendingTripCount =
+      this.pendingTripService
+        .getPendingTripCount();
 
     try {
+      const syncedCount =
+        await this.tripService
+          .syncPendingTrips();
+
+      this.pendingTripCount =
+        this.pendingTripService
+          .getPendingTripCount();
+
+      if (syncedCount === 1) {
+        this.syncMessage =
+          '1 pending trip synchronized successfully.';
+      } else if (syncedCount > 1) {
+        this.syncMessage =
+          `${syncedCount} pending trips synchronized successfully.`;
+      } else if (this.pendingTripCount > 0) {
+        this.syncMessage =
+          `${this.pendingTripCount} trip(s) are waiting to synchronize.`;
+      } else {
+        this.syncMessage =
+          'All trips are synchronized.';
+      }
+
+      console.log(
+        'Pending trips synchronized:',
+        syncedCount
+      );
+
       const trips =
         await this.tripService.getAllTrips();
 
@@ -70,6 +108,7 @@ export class MyDriving implements OnInit {
       );
 
       this.loadLatestTripAnalytics();
+
     } catch (error) {
       console.error(
         'Could not load recent trips:',
@@ -80,10 +119,20 @@ export class MyDriving implements OnInit {
         'Could not load recent trips.';
 
       this.recentTrips = [];
+
+      this.pendingTripCount =
+        this.pendingTripService
+          .getPendingTripCount();
+
+      if (this.pendingTripCount > 0) {
+        this.syncMessage =
+          `${this.pendingTripCount} trip(s) are waiting to synchronize.`;
+      }
+
     } finally {
       this.isLoadingTrips = false;
 
-  this.changeDetectorRef.detectChanges();
+      this.changeDetectorRef.detectChanges();
     }
   }
 
@@ -308,6 +357,7 @@ export class MyDriving implements OnInit {
       await this.router.navigate(
         ['/active-trip']
       );
+
     } catch (error) {
       console.error(
         'Start trip failed:',
@@ -317,18 +367,19 @@ export class MyDriving implements OnInit {
       alert(
         'Failed to start trip. Please check your GPS settings.'
       );
+
     } finally {
       this.isStartingTrip = false;
     }
   }
 
   viewAllTrips(event: Event): void {
-  event.preventDefault();
+    event.preventDefault();
 
-  this.router.navigate(
-    ['/trip-history']
-  );
-}
+    this.router.navigate(
+      ['/trip-history']
+    );
+  }
 
   trackTrip(
     index: number,

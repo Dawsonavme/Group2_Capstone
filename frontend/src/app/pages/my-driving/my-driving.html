@@ -4,6 +4,7 @@
 
   <div class="page-header">
     <h1>My Driving Analytics</h1>
+
     <p class="subtitle">
       Track your personal driving habits and risk score
     </p>
@@ -19,6 +20,24 @@
       {{ isStartingTrip ? 'Starting Trip...' : '🚗 Start New Trip' }}
 
     </button>
+  </div>
+
+  <!-- Synchronization Status -->
+  <div
+    class="card sync-status-card"
+    *ngIf="!isLoadingTrips">
+
+    <h3>Synchronization Status</h3>
+
+    <p>
+      Pending uploads:
+      <strong>{{ pendingTripCount }}</strong>
+    </p>
+
+    <p *ngIf="syncMessage">
+      {{ syncMessage }}
+    </p>
+
   </div>
 
   <!-- Risk Score Card -->
@@ -92,12 +111,12 @@
       <h3>Recent Trips</h3>
 
       <a
-  href="#"
-  (click)="viewAllTrips($event)">
+        href="#"
+        (click)="viewAllTrips($event)">
 
-  View All
+        View All
 
-</a>
+      </a>
     </div>
 
     <p *ngIf="isLoadingTrips">

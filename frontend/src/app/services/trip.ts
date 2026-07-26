@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { firstValueFrom } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { PendingTripService } from './pending-trip.service';
 
 export interface GPSPoint {
   latitude: number;
@@ -71,7 +73,7 @@ export type TripStatus =
 export class TripService {
 
   private readonly apiUrl =
-    'http://localhost:8080/api/trips';
+    `${environment.apiUrl}/api/trips`;
 
   readonly PROTOTYPE_THRESHOLD = 50;
 
@@ -80,7 +82,8 @@ export class TripService {
   completedTrip: Trip | null = null;
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private pendingTripService: PendingTripService
   ) {}
 
   async startTrip(
@@ -234,9 +237,98 @@ export class TripService {
         error
       );
 
-      return false;
+      this.pendingTripService.savePendingTrip(
+        this.activeTrip.id,
+        requestBody
+      );
+
+      this.activeTrip.endTime = endTime;
+      this.activeTrip.endLocation = endLocation;
+      this.activeTrip.gpsPointCount =
+        this.activeTrip.gpsPoints.length;
+
+      this.activeTrip.averageSpeed =
+        this.calculateAverageSpeed();
+
+      this.activeTrip.maximumSpeed =
+        this.calculateMaximumSpeed();
+
+      this.activeTrip.prototypeThreshold =
+        this.PROTOTYPE_THRESHOLD;
+
+      this.activeTrip.thresholdExceededCount =
+        this.calculateThresholdExceeded();
+
+      this.activeTrip.postTripMessage =
+        'The backend could not be reached. This trip was saved on this device and is pending synchronization.';
+
+      this.activeTrip.duration =
+        this.calculateDuration(
+          this.activeTrip.startTime,
+          endTime
+        );
+
+      this.activeTrip.status = 'completed';
+
+      this.completedTrip = {
+        ...this.activeTrip
+      };
+
+      this.tripStatus = 'completed';
+
+      return true;
     }
   }
+
+  async syncPendingTrips(): Promise<number> {
+
+  const pendingTrips =
+    this.pendingTripService.getPendingTrips();
+
+  if (pendingTrips.length === 0) {
+    console.log(
+      'No pending trips to synchronize.'
+    );
+
+    return 0;
+  }
+
+  let successfulSyncCount = 0;
+
+  for (const pendingTrip of pendingTrips) {
+    try {
+      const response = await firstValueFrom(
+        this.http.put<BackendTripResponse>(
+          `${this.apiUrl}/${pendingTrip.backendTripId}/end`,
+          pendingTrip.payload
+        )
+      );
+
+      this.pendingTripService.removePendingTrip(
+        pendingTrip.localId
+      );
+
+      successfulSyncCount++;
+
+      console.log(
+        'Pending trip synchronized successfully:',
+        response
+      );
+
+    } catch (error) {
+      this.pendingTripService.incrementRetryCount(
+        pendingTrip.localId
+      );
+
+      console.error(
+        `Pending trip ${pendingTrip.backendTripId} could not be synchronized:`,
+        error
+      );
+    }
+  }
+
+  return successfulSyncCount;
+}
 
   private calculateAverageSpeed(): number {
     if (!this.activeTrip) {

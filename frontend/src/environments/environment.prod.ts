@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://replace-with-deployed-backend-url'
+  apiUrl: 'http://34.201.93.5:8080'
 };

@@ -1,0 +1,108 @@
+<div class="page">
+
+  <div class="page-header">
+    <h1>Trip History</h1>
+
+    <p>
+      Review all recorded trips.
+    </p>
+  </div>
+
+  <button
+    type="button"
+    (click)="goBack()">
+
+    Back to My Driving
+
+  </button>
+
+  <p *ngIf="isLoading">
+    Loading trip history...
+  </p>
+
+  <p *ngIf="errorMessage">
+    {{ errorMessage }}
+  </p>
+
+  <p
+    *ngIf="
+      !isLoading &&
+      !errorMessage &&
+      trips.length === 0">
+
+    No trips have been recorded yet.
+
+  </p>
+
+  <div
+    class="trip-list"
+    *ngIf="
+      !isLoading &&
+      !errorMessage &&
+      trips.length > 0">
+
+    <div
+  class="trip-card"
+  role="button"
+  tabindex="0"
+  (click)="viewTripDetails(trip.id)"
+  (keydown.enter)="viewTripDetails(trip.id)"
+  *ngFor="
+    let trip of trips;
+    trackBy: trackTrip">
+
+      <div class="trip-info">
+
+        <strong>
+          {{ trip.startTime | date:'MMMM d, y' }}
+          •
+          {{ trip.startTime | date:'h:mm a' }}
+        </strong>
+
+        <p>
+          <span *ngIf="trip.distanceKm != null">
+            {{ trip.distanceKm | number:'1.2-2' }} km
+            •
+          </span>
+
+          {{ trip.gpsPointCount }} GPS points
+          •
+          {{ trip.status | titlecase }}
+        </p>
+
+        <p *ngIf="trip.averageSpeedKmh != null">
+          Average Speed:
+          {{ trip.averageSpeedKmh | number:'1.1-1' }}
+          km/h
+        </p>
+
+        <p *ngIf="trip.maximumSpeedKmh != null">
+          Maximum Speed:
+          {{ trip.maximumSpeedKmh | number:'1.1-1' }}
+          km/h
+        </p>
+
+        <small *ngIf="trip.endTime">
+          Ended
+          {{ trip.endTime | date:'MMMM d, y, h:mm a' }}
+        </small>
+
+        <small *ngIf="!trip.endTime">
+          Trip is still active
+        </small>
+
+        <p *ngIf="trip.postTripMessage">
+          {{ trip.postTripMessage }}
+        </p>
+
+      </div>
+
+      <div class="trip-id">
+        #{{ trip.id }}
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,90 @@
+.page {
+  padding: 20px;
+  color: white;
+  background: #07111f;
+  min-height: 100vh;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #aebbd0;
+  font-size: 16px;
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 16px;
+  font-size: 18px;
+  font-weight: 700;
+  background: linear-gradient(135deg, #7c3aed, #a855f7);
+  color: white;
+  border: none;
+  border-radius: 16px;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+
+.primary-btn:disabled {
+  opacity: 0.7;
+}
+
+.card {
+  background: rgba(17, 28, 46, 0.96);
+  border: 1px solid #263850;
+  border-radius: 20px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.gauge {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.score {
+  font-size: 72px;
+  font-weight: 800;
+  color: #ffd84d;
+}
+
+.metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+}
+
+.metric {
+  background: #0d1728;
+  border: 1px solid #24344d;
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+}
+
+.trip-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0d1728;
+  border: 1px solid #24344d;
+  border-radius: 16px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.trip-score {
+  width: 68px;
+  height: 68px;
+  border: 5px solid #ff944d;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  font-weight: 800;
+  color: #ffd84d;
+}

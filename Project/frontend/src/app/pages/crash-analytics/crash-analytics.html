@@ -1,0 +1,168 @@
+<!-- Crash Analytics tab: generalized historical crash data -->
+<section class="page">
+
+  <!-- Page title -->
+  <div class="page-header">
+    <h2>Historical Crash Analytics</h2>
+    <p>Generalized crash risk insights based on historical crash patterns</p>
+  </div>
+
+  <!-- Scenario builder card -->
+  <article class="card">
+    <div class="section-row">
+      <h3>Build a Crash Scenario</h3>
+      <span class="badge">General Data</span>
+    </div>
+
+    <p class="muted">
+      Select crash conditions to estimate risk, injury severity, and recovery outlook.
+    </p>
+
+    <!-- Scenario condition boxes -->
+    <div class="scenario-grid">
+      <div class="scenario-box">
+        <span>Vehicle Type</span>
+        <strong>SUV</strong>
+      </div>
+
+      <div class="scenario-box">
+        <span>Collision Type</span>
+        <strong>Rear-End</strong>
+      </div>
+
+      <div class="scenario-box">
+        <span>Speed Range</span>
+        <strong>80 - 100 km/h</strong>
+      </div>
+
+      <div class="scenario-box">
+        <span>Weather</span>
+        <strong>Rainy</strong>
+      </div>
+
+      <div class="scenario-box">
+        <span>Road Condition</span>
+        <strong>Wet Road</strong>
+      </div>
+
+      <div class="scenario-box">
+        <span>Time of Day</span>
+        <strong>Night</strong>
+      </div>
+    </div>
+
+    <button class="primary-btn">Analyze Risk</button>
+  </article>
+
+  <!-- Risk and severity section -->
+  <div class="grid two">
+
+    <!-- Overall risk score -->
+    <article class="card score-card">
+      <h3>Overall Crash Risk</h3>
+
+      <div class="risk-circle">
+        <span>72</span>
+      </div>
+
+      <p class="risk-text">High Risk Scenario</p>
+      <p class="muted">
+        Risk increases because of high speed, rain, wet road conditions, and night driving.
+      </p>
+    </article>
+
+    <!-- Severity likelihood -->
+    <article class="card">
+      <h3>Severity Likelihood</h3>
+
+      <div class="bar-row">
+        <span>Minor</span>
+        <div class="bar green"><div style="width: 18%"></div></div>
+        <strong>18%</strong>
+      </div>
+
+      <div class="bar-row">
+        <span>Moderate</span>
+        <div class="bar yellow"><div style="width: 34%"></div></div>
+        <strong>34%</strong>
+      </div>
+
+      <div class="bar-row">
+        <span>Severe</span>
+        <div class="bar orange"><div style="width: 32%"></div></div>
+        <strong>32%</strong>
+      </div>
+
+      <div class="bar-row">
+        <span>Fatal</span>
+        <div class="bar red"><div style="width: 16%"></div></div>
+        <strong>16%</strong>
+      </div>
+    </article>
+
+  </div>
+
+  <!-- Historical results -->
+  <div class="grid two">
+
+    <!-- Injury prediction -->
+    <article class="card">
+      <h3>Most Likely Injuries</h3>
+
+      <div class="injury-item">
+        <span>Whiplash / Neck Injury</span>
+        <strong>42%</strong>
+      </div>
+
+      <div class="injury-item">
+        <span>Lower Back Injury</span>
+        <strong>28%</strong>
+      </div>
+
+      <div class="injury-item">
+        <span>Head Injury / Concussion</span>
+        <strong>18%</strong>
+      </div>
+
+      <div class="injury-item">
+        <span>Fractures</span>
+        <strong>12%</strong>
+      </div>
+    </article>
+
+    <!-- Similar historical crash count -->
+    <article class="card score-card">
+      <h3>Similar Historical Crashes</h3>
+
+      <div class="large-number">1,240</div>
+
+      <p class="muted">
+        Similar crash cases found using selected vehicle, weather, speed, and road conditions.
+      </p>
+    </article>
+
+  </div>
+
+  <!-- Recovery outlook -->
+  <article class="card">
+    <h3>Recovery Outlook</h3>
+
+    <div class="recovery-grid">
+      <div>
+        <strong>Minor Injury</strong>
+        <p>1 - 3 weeks</p>
+      </div>
+
+      <div>
+        <strong>Moderate Injury</strong>
+        <p>4 - 10 weeks</p>
+      </div>
+
+      <div>
+        <strong>Severe Injury</strong>
+        <p>3 - 12 months</p>
+      </div>
+    </div>
+  </article>
+
+</section>

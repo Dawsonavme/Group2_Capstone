@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://34.196.156.37:8080'
+  apiUrl: 'https://gear-slapstick-erasable.ngrok-free.dev'
 };

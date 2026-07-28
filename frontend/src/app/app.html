@@ -1,0 +1,46 @@
+<!-- Main app wrapper -->
+<div class="app-shell">
+
+  <!-- Top heading section -->
+  <header class="app-header">
+    <div>
+      <h1>Driver Safety Analytics</h1>
+      <p>Track personal driving risk and explore historical crash data</p>
+    </div>
+  </header>
+
+  <!-- Main tab navigation -->
+  <nav class="tab-nav">
+
+    <!-- User-specific tab -->
+    <a routerLink="/my-driving" routerLinkActive="active">
+      <span>🚗</span>
+      My Driving
+    </a>
+
+    <!-- General historical crash data tab -->
+    <a routerLink="/crash-analytics" routerLinkActive="active">
+      <span>📊</span>
+      Crash Analytics
+    </a>
+
+    <!-- General trends tab -->
+    <a routerLink="/trends" routerLinkActive="active">
+      <span>📈</span>
+      Trends
+    </a>
+
+    <!-- Recommendation tab -->
+    <a routerLink="/recommendations" routerLinkActive="active">
+      <span>💡</span>
+      Recommendations
+    </a>
+
+  </nav>
+
+  <!-- Routed page content appears here -->
+  <main class="content-area">
+    <router-outlet></router-outlet>
+  </main>
+
+</div>

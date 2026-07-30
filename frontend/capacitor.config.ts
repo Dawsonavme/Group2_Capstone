@@ -4,9 +4,6 @@ const config: CapacitorConfig = {
   appId: 'com.example.app',
   appName: 'driver-safety-tabs',
   webDir: 'dist/driver-safety-tabs/browser',
-  server: {
-    cleartext: true
-  }
 };
 
 export default config;

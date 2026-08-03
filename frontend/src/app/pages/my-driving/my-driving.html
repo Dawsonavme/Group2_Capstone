@@ -111,12 +111,13 @@
       <h3>Recent Trips</h3>
 
       <a
-        href="#"
-        (click)="viewAllTrips($event)">
+  href="#"
+  class="view-all-btn"
+  (click)="viewAllTrips($event)">
 
-        View All
+  View All
 
-      </a>
+</a>
     </div>
 
     <p *ngIf="isLoadingTrips">

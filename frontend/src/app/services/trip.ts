@@ -72,8 +72,7 @@ export type TripStatus =
 })
 export class TripService {
 
-  private readonly apiUrl =
-    `${environment.apiUrl}/api/trips`;
+ private readonly apiUrl = environment.apiUrl;
 
   readonly PROTOTYPE_THRESHOLD = 50;
 

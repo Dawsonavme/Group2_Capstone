@@ -61,6 +61,11 @@
         },
         "serve": {
           "builder": "@angular/build:dev-server",
+           "options": {
+    "allowedHosts": [
+      "blame-handcart-singing.ngrok-free.dev"
+    ]
+  },
           "configurations": {
             "production": {
               "buildTarget": "driver-safety-tabs:build:production"
